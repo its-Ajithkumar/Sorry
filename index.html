@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>❤️</title>
+  <title>I Have Something to Ask ❤️</title>
 
   <style>
     body {
@@ -25,18 +25,11 @@
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
       position: relative;
       max-width: 400px;
+      z-index: 2;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    p {
-      margin-bottom: 30px;
-      font-size: 18px;
-      color: #555;
-    }
+    h1 { margin-bottom: 20px; color: #333; }
+    p { margin-bottom: 30px; font-size: 18px; color: #555; }
 
     .buttons {
       position: relative;
@@ -53,67 +46,111 @@
       transition: all 0.2s ease;
     }
 
-    #yesBtn {
-      background-color: #4CAF50;
+    #yesBtn { background-color: #4CAF50; color: white; left: 30%; }
+    #noBtn { background-color: #f44336; color: white; left: 55%; }
+
+    .final-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 28px;
       color: white;
-      left: 30%;
+      text-align: center;
+      z-index: 5;
+      transition: transform 0.6s ease;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.4);
     }
 
-    #noBtn {
-      background-color: #f44336;
-      color: white;
-      left: 55%;
+    .show { transform: translate(-50%, -50%) scale(1); }
+
+    .heart {
+      position: fixed;
+      color: red;
+      font-size: 24px;
+      animation: floatUp 3s linear forwards;
+      z-index: 1;
     }
 
-    .message {
-      margin-top: 25px;
-      font-size: 18px;
-      color: #e91e63;
-      display: none;
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-200px); opacity: 0; }
+    }
+
+    .flash {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .flash-active {
+      animation: flashAnim 0.5s ease;
+    }
+
+    @keyframes flashAnim {
+      0% { opacity: 0; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <div class="box">
-    <h1>Hey Pappa ❤️</h1>
-    <p>I am sorry Thangam :) will you forgive me?</p>
+<div class="flash" id="flash"></div>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 🥰</button>
-      <button id="noBtn">No 😒</button>
-    </div>
+<div class="box">
+  <h1>Hey Love ❤️</h1>
+  <p>I know I messed up… Will you forgive me?</p>
 
-    <div class="message" id="message">
-      YAYYY! Ne Jolly ah poi va pappa, na ethum solla mattan 💖
-    </div>
+  <div class="buttons">
+    <button id="yesBtn">Yes 🥰</button>
+    <button id="noBtn">No 😒</button>
   </div>
+</div>
 
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const message = document.getElementById("message");
-    const box = document.querySelector(".box");
+<div class="final-message" id="finalMessage">
+  YOU SAID YES!!! 💖<br><br>
+  I LOVE YOU MORE THAN WIFI,<br>
+  MORE THAN FOOD,<br>
+  AND EVEN MORE THAN SLEEP 😘
+</div>
 
-    noBtn.addEventListener("mouseover", () => {
-      const boxRect = box.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const finalMessage = document.getElementById("finalMessage");
+  const flash = document.getElementById("flash");
+  const box = document.querySelector(".box");
 
-      const maxX = boxRect.width - btnRect.width;
-      const maxY = boxRect.height - btnRect.height;
+  noBtn.addEventListener("mouseover", () => {
+    const boxRect = box.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+    const maxX = boxRect.width - btnRect.width;
+    const maxY = boxRect.height - btnRect.height;
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+  });
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+  yesBtn.addEventListener("click", () => {
+    flash.classList.add("flash-active");
+    finalMessage.classList.add("show");
 
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
-    });
-
-    yesBtn.addEventListener("click", () => {
-      message.style.display = "block";
-      yesBtn.innerText = "Best Husband Award 🏆";
-    });
-  </script>
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight + "px";
+      heart.style.fontSize = (20 + Math.random() * 30) + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  });
+</script>
 
 </body>
 </html>
