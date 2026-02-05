@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .box {
+      text-align: center;
+      background: white;
+      padding: 50px 40px;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    p {
+      margin-bottom: 30px;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .buttons {
+      position: relative;
+      height: 100px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.2s ease;
+    }
+
+    #yesBtn {
+      background-color: #4CAF50;
+      color: white;
+      left: 30%;
+    }
+
+    #noBtn {
+      background-color: #f44336;
+      color: white;
+      left: 55%;
+    }
+
+    .message {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #e91e63;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>Hey Pappa ❤️</h1>
+    <p>I am sorry Thangam :) will you forgive me?</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 🥰</button>
+      <button id="noBtn">No 😒</button>
+    </div>
+
+    <div class="message" id="message">
+      YAYYY! Ne Jolly ah poi va pappa, na ethum solla mattan 💖
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+    const box = document.querySelector(".box");
+
+    noBtn.addEventListener("mouseover", () => {
+      const boxRect = box.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = boxRect.width - btnRect.width;
+      const maxY = boxRect.height - btnRect.height;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block";
+      yesBtn.innerText = "Best Husband Award 🏆";
+    });
+  </script>
+
+</body>
+</html>
